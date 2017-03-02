@@ -12,7 +12,7 @@ namespace PasswordCrackingTeamProject
     public class ServerProgram
     {
         public static List<UserInfo> UserInfo; 
-        public static int count = 20;
+        public static int count = 0;
 
         public static List<string> Dictionary;
         static void Main(string[] args)

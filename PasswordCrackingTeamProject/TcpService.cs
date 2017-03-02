@@ -29,10 +29,8 @@ namespace PasswordCrackingTeamProject
             StreamWriter sw = new StreamWriter(ns);
             sw.AutoFlush = true;
 
-            var password = "asdad98123adasd";
-
             sw.WriteLine(ServerProgram.count.ToString());
-            sw.WriteLine(password);
+            sw.WriteLine(GetPasswordString());
 
 
             while (true)
@@ -46,6 +44,18 @@ namespace PasswordCrackingTeamProject
                 }
 
             }
+        }
+
+        public string GetPasswordString()
+        {
+            string result = ""; 
+
+            foreach(var v in ServerProgram.UserInfo)
+            {
+                result += v.ToString() + "_"; 
+            }
+
+            return result; 
         }
 
 

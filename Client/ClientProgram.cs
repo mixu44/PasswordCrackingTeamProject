@@ -10,6 +10,8 @@ namespace Client
 {
     class ClientProgram
     {
+        public static List<UserInfo> userInfo = new List<UserInfo>(); 
+
         static void Main(string[] args)
         {
             TcpClient client = new TcpClient("localhost", 6789);
@@ -22,8 +24,23 @@ namespace Client
             sw.AutoFlush = true;
             string count = sr.ReadLine();
             Console.WriteLine("You are client number: " + count);
+            Console.WriteLine();
+            Console.WriteLine("Recieving passwords...");
             string password = sr.ReadLine();
-            Console.WriteLine(password);
+            Console.WriteLine("Passwords recieved!");
+            var passSplit = password.Split('_'); 
+
+            foreach(var v in passSplit)
+            {
+                if (!string.IsNullOrEmpty(v))
+                {
+                    var temp = v.Split(':');
+                    userInfo.Add(new UserInfo(temp[0], temp[1])); 
+
+                }
+            }
+
+            Console.WriteLine("Passwords count: " + userInfo.Count);
 
             while (true)
             {
