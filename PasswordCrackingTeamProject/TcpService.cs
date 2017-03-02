@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,9 +29,23 @@ namespace PasswordCrackingTeamProject
             StreamWriter sw = new StreamWriter(ns);
             sw.AutoFlush = true;
 
-            var msg = sr.ReadLine();
+            var password = "asdad98123adasd";
 
-            Console.WriteLine(msg);
+            sw.WriteLine(Program.count.ToString());
+            sw.WriteLine(password);
+
+
+            while (true)
+            {
+
+                var msg = sr.ReadLine();
+
+                if (msg == "/crack")
+                {
+
+                }
+
+            }
         }
 
 
