@@ -1,17 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace PasswordCrackingTeamProject
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello world");
-            Console.WriteLine();
+            TcpListener listener = new TcpListener(6789);
+            listener.Start();
+
+
+            while (true)
+            {
+                TcpClient client = listener.AcceptTcpClient();
+                TcpService s = new TcpService(listener, client);
+
+
+                Task.Factory.StartNew(s.Run); 
+
+
+            }
         }
     }
 }
