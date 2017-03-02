@@ -24,12 +24,10 @@ namespace PasswordCrackingTeamProject
 
             Dictionary = new List<string>();
             LoadDictionary();
-            
+            DivideDictionary();
 
             Console.WriteLine();
             Console.WriteLine("Waiting for clients to connect...");
-
-
 
             while (true)
             {
@@ -58,6 +56,20 @@ namespace PasswordCrackingTeamProject
             Console.WriteLine("Dictionary count: " + Dictionary.Count);
             Console.WriteLine("Dictionary loaded sucessful!");
 
+        }
+
+        private static IEnumerable<List<string>> DivideDictionary()
+        {
+            Console.WriteLine("Dividing dictionary into chunks...");
+            int i = 0;
+            var chunks = from dic in Dictionary
+                         group dic by i++ % 20 into part
+                         select part.ToList();
+
+            Console.WriteLine("Dividing completed!");
+            Console.WriteLine("Numbers of chunks: " + chunks.Count());
+
+            return chunks; 
         }
     }
 }
