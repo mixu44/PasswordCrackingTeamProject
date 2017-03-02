@@ -15,8 +15,8 @@ namespace PasswordCrackingTeamProject
 
         public TcpService(TcpListener _listener, TcpClient _client)
         {
-            _listener = listener;
-            _client = client;
+            listener = _listener;
+            client = _client;
         }
 
 
@@ -28,7 +28,9 @@ namespace PasswordCrackingTeamProject
             StreamWriter sw = new StreamWriter(ns);
             sw.AutoFlush = true;
 
-            Console.WriteLine("Ready");
+            var msg = sr.ReadLine();
+
+            Console.WriteLine(msg);
         }
 
 
