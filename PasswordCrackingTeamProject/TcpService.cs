@@ -40,7 +40,12 @@ namespace PasswordCrackingTeamProject
 
                 if (msg == "/crack")
                 {
-
+                    sw.WriteLine("crack");
+                    sw.WriteLine(GetChunk()); 
+                }
+                else
+                {
+                    sw.WriteLine("Unkown Command"); 
                 }
 
             }
@@ -58,6 +63,21 @@ namespace PasswordCrackingTeamProject
             return result; 
         }
 
+        public string GetChunk()
+        {
+            var index = ServerProgram.Index;
+            ServerProgram.Index++;
+
+            var list = ServerProgram.DictionaryChunks.ToList()[index];
+            string result = ""; 
+
+            foreach(var v in list)
+            {
+                result += v + "_"; 
+            }
+
+            return result; 
+        }
 
 
     }

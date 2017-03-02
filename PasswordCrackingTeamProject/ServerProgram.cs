@@ -14,7 +14,11 @@ namespace PasswordCrackingTeamProject
         public static List<UserInfo> UserInfo; 
         public static int count = 0;
 
+        public static int Index = 0; 
+
         public static List<string> Dictionary;
+        public static IEnumerable<List<string>> DictionaryChunks = new List<List<string>>(); 
+
         static void Main(string[] args)
         {
             TcpListener listener = new TcpListener(6789);
@@ -24,7 +28,7 @@ namespace PasswordCrackingTeamProject
 
             Dictionary = new List<string>();
             LoadDictionary();
-            DivideDictionary();
+            DictionaryChunks = DivideDictionary();
 
             Console.WriteLine();
             Console.WriteLine("Waiting for clients to connect...");

@@ -10,12 +10,15 @@ namespace Client
 {
     class ClientProgram
     {
-        public static List<UserInfo> userInfo = new List<UserInfo>(); 
+        public static List<UserInfo> userInfo = new List<UserInfo>();
+        public static List<string> Dictionary;
 
         static void Main(string[] args)
         {
             TcpClient client = new TcpClient("localhost", 6789);
             Stream ns = client.GetStream();
+
+            Dictionary = new List<string>();
 
             Console.WriteLine("Connected to server...");
 
@@ -42,12 +45,32 @@ namespace Client
 
             Console.WriteLine("Passwords count: " + userInfo.Count);
 
+            Console.WriteLine("Ready to crack. Type /crack to crack");
+
             while (true)
             {
                 var msg = Console.ReadLine();
                 sw.WriteLine(msg);
 
                 var response = sr.ReadLine(); 
+
+                if(response == "crack")
+                {
+                    var dic = sr.ReadLine();
+                    var splitDdic = dic.Split('_');
+
+                    foreach(var v in splitDdic)
+                    {
+                        if (!string.IsNullOrEmpty(v))
+                        {
+                            Dictionary.Add(v); 
+                        }
+                    }
+                    Console.WriteLine("Dictionary count: " + Dictionary.Count);
+                }
+
+
+                
 
 
             }
