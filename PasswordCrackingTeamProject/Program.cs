@@ -11,16 +11,19 @@ namespace PasswordCrackingTeamProject
 {
     public class Program
     {
-        public static int count = 0; 
+        public static int count = 20; 
+
         static void Main(string[] args)
         {
             TcpListener listener = new TcpListener(6789);
             listener.Start();
 
+            GetPasswordAndWordlist();
+
+            Console.WriteLine();
+
             Console.WriteLine("Server started...");
             Console.WriteLine("Waiting for clients to connect...");
-
-         
 
             while (true)
             {
@@ -36,6 +39,18 @@ namespace PasswordCrackingTeamProject
 
 
             }
+            public static void GetPasswordAndWordlist()
+        {
+            Console.WriteLine();
+            Console.WriteLine("Loading password file...");
+            UserInfo = PasswordFileHandler.ReadPasswordFile("passwords.txt");
+            Console.WriteLine("Password file loaded sucessfull...");
+            Console.WriteLine();
+            Console.WriteLine("Loading dictionary... ");
+            Dictionary = DictionaryFileHandler.ReadDictionary("webster-dictionary.txt");
+            Console.WriteLine("Dictionary count: " + Dictionary.Count);
+            Console.WriteLine("Dictionary loaded sucessfull...");
         }
+    }
     }
 }
