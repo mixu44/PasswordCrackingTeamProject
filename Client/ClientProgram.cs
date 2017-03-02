@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Client
 {
-    class Program
+    class ClientProgram
     {
         static void Main(string[] args)
         {
@@ -29,6 +29,10 @@ namespace Client
             {
                 var msg = Console.ReadLine();
                 sw.WriteLine(msg);
+
+                var response = sr.ReadLine(); 
+
+
             }
 
         }

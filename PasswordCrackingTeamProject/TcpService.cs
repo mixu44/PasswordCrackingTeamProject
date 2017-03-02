@@ -31,7 +31,7 @@ namespace PasswordCrackingTeamProject
 
             var password = "asdad98123adasd";
 
-            sw.WriteLine(Program.count.ToString());
+            sw.WriteLine(ServerProgram.count.ToString());
             sw.WriteLine(password);
 
 

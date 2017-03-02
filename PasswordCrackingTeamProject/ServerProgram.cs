@@ -9,18 +9,25 @@ using System.Threading.Tasks;
 
 namespace PasswordCrackingTeamProject
 {
-    public class Program
+    public class ServerProgram
     {
-        public static int count = 0; 
+        public static int count = 0;
+
+        public static List<string> Dictionary;
         static void Main(string[] args)
         {
             TcpListener listener = new TcpListener(6789);
             listener.Start();
+            Console.WriteLine("Server started!");
+            Console.WriteLine();
 
-            Console.WriteLine("Server started...");
+            Dictionary = new List<string>();
+            LoadDictionary();
+
+            Console.WriteLine();
             Console.WriteLine("Waiting for clients to connect...");
 
-         
+
 
             while (true)
             {
@@ -36,6 +43,14 @@ namespace PasswordCrackingTeamProject
 
 
             }
+        }
+
+        private static void LoadDictionary()
+        {
+            Console.WriteLine("Loading dictionary...");
+            Dictionary = DictionaryHandler.ReadDictionary("webster-dictionary.txt");
+            Console.WriteLine("Dictionary count: " + Dictionary.Count);
+            Console.WriteLine("Dictionary loaded sucessful!");
         }
     }
 }
