@@ -11,7 +11,8 @@ namespace PasswordCrackingTeamProject
 {
     public class ServerProgram
     {
-        public static int count = 0;
+        public static List<UserInfo> UserInfo; 
+        public static int count = 20;
 
         public static List<string> Dictionary;
         static void Main(string[] args)
@@ -23,6 +24,7 @@ namespace PasswordCrackingTeamProject
 
             Dictionary = new List<string>();
             LoadDictionary();
+            
 
             Console.WriteLine();
             Console.WriteLine("Waiting for clients to connect...");
@@ -47,10 +49,15 @@ namespace PasswordCrackingTeamProject
 
         private static void LoadDictionary()
         {
+            Console.WriteLine("Loading Password File");
+            UserInfo = PasswordHandler.ReadPasswordFile("password.txt");
+            Console.WriteLine("Password File Loaded.....");
+            Console.WriteLine();
             Console.WriteLine("Loading dictionary...");
             Dictionary = DictionaryHandler.ReadDictionary("webster-dictionary.txt");
             Console.WriteLine("Dictionary count: " + Dictionary.Count);
             Console.WriteLine("Dictionary loaded sucessful!");
+
         }
     }
 }
