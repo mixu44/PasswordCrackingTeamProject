@@ -67,6 +67,9 @@ namespace Client
                         }
                     }
                     Console.WriteLine("Dictionary count: " + Dictionary.Count);
+
+
+
                 }
 
 
