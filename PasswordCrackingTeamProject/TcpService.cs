@@ -64,7 +64,7 @@ namespace PasswordCrackingTeamProject
 
                         Console.WriteLine("Result so far: ");
 
-                        foreach(var v in ServerProgram.EndResult)
+                        foreach (var v in ServerProgram.EndResult)
                         {
                             Console.WriteLine(v);
                         }
@@ -94,18 +94,23 @@ namespace PasswordCrackingTeamProject
 
         public string GetChunk()
         {
-            var index = ServerProgram.Index;
-            ServerProgram.Index++;
-
-            var list = ServerProgram.DictionaryChunks.ToList()[index];
-            string result = "";
-
-            foreach (var v in list)
+            lock (new object())
             {
-                result += v + "_";
+                var index = ServerProgram.Index;
+                ServerProgram.Index++;
+
+                var list = ServerProgram.DictionaryChunks.ToList()[index];
+                string result = "";
+
+                foreach (var v in list)
+                {
+                    result += v + "_";
+                }
+
+                return result;
             }
 
-            return result;
+
         }
 
 

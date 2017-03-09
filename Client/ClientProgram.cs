@@ -48,19 +48,21 @@ namespace Client
 
             Console.WriteLine("Ready to crack. Type /crack to crack");
 
-            bool cont = true;
+            bool bo = true;
 
             while (true)
             {
                 var msg = Console.ReadLine();
                 sw.WriteLine(msg);
 
-                while (cont)
+                while (true)
                 {
                     var response = sr.ReadLine();
 
                     if (response == "crack")
                     {
+                        Console.WriteLine("Cracking started...");
+
                         var dic = sr.ReadLine();
                         var splitDdic = dic.Split('_');
 
@@ -77,7 +79,7 @@ namespace Client
                         Cracking crack = new Cracking();
                         crack.RunCracking(userInfo, Dictionary);
 
-                        string cracketPasswords = ""; 
+                        string cracketPasswords = "";
 
                         if (Result.Count == 0)
                         {
@@ -99,27 +101,41 @@ namespace Client
                         Console.WriteLine();
                         Console.WriteLine("Continue? y / n");
 
-                        if (Console.ReadKey().Key == ConsoleKey.Y)
-                        {
-                            sw.WriteLine("/crack");
-                            Console.WriteLine();
+                        bool end = false; 
 
-                            continue;
-
-                        }
-                        else if (Console.ReadKey().Key == ConsoleKey.N)
+                        while (bo)
                         {
+                            var qwe = Console.ReadKey().Key;
 
+                            if (qwe == ConsoleKey.Y)
+                            {
+                                sw.WriteLine("/crack");
+                                Console.WriteLine();
+
+                                break;
+
+                            }
+                            else if (qwe == ConsoleKey.N)
+                            {
+                                Console.WriteLine();
+                                Console.WriteLine("Cracking stopped!");
+                                end = true;
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine();
+                                Console.WriteLine("Type Y or N");
+                            }
                         }
-                        else
-                        {
-                            Console.WriteLine("Y = Continue. N = Dont continue");
-                        }
+
+                        if (end)
+                            break; 
+
                     }
-
                 }
-            }
 
+            }
         }
     }
 }

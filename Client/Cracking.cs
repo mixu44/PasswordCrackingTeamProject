@@ -31,8 +31,6 @@ namespace Client
 
             List<UserInfoClearText> result = new List<UserInfoClearText>();
 
-            Console.WriteLine("Cracking started...");
-
             foreach (var d in dic)
             {
                 String dictionaryEntry = d;
