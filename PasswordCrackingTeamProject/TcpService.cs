@@ -35,17 +35,46 @@ namespace PasswordCrackingTeamProject
 
             while (true)
             {
-
                 var msg = sr.ReadLine();
 
                 if (msg == "/crack")
                 {
                     sw.WriteLine("crack");
-                    sw.WriteLine(GetChunk()); 
+                    sw.WriteLine(GetChunk());
+
+                    var res = sr.ReadLine();
+
+                    if (res == "null")
+                    {
+                        Console.WriteLine("Client found no passwords...");
+                    }
+                    else
+                    {
+                        var splitRes = res.Split('_');
+
+                        foreach (var v in splitRes)
+                        {
+                            var result = v.Split(':');
+
+                            if (!string.IsNullOrEmpty(v))
+                            {
+                                ServerProgram.EndResult.Add(new UserInfoClearText(result[0], result[1]));
+                            }
+                        }
+
+                        Console.WriteLine("Result so far: ");
+
+                        foreach(var v in ServerProgram.EndResult)
+                        {
+                            Console.WriteLine(v);
+                        }
+
+                    }
+                    sw.WriteLine("Chunks count: " + (20 - ServerProgram.Index));
                 }
                 else
                 {
-                    sw.WriteLine("Unkown Command"); 
+                    sw.WriteLine("Unkown Command");
                 }
 
             }
@@ -53,14 +82,14 @@ namespace PasswordCrackingTeamProject
 
         public string GetPasswordString()
         {
-            string result = ""; 
+            string result = "";
 
-            foreach(var v in ServerProgram.UserInfo)
+            foreach (var v in ServerProgram.UserInfo)
             {
-                result += v.ToString() + "_"; 
+                result += v.ToString() + "_";
             }
 
-            return result; 
+            return result;
         }
 
         public string GetChunk()
@@ -69,14 +98,14 @@ namespace PasswordCrackingTeamProject
             ServerProgram.Index++;
 
             var list = ServerProgram.DictionaryChunks.ToList()[index];
-            string result = ""; 
+            string result = "";
 
-            foreach(var v in list)
+            foreach (var v in list)
             {
-                result += v + "_"; 
+                result += v + "_";
             }
 
-            return result; 
+            return result;
         }
 
 

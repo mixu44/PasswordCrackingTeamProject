@@ -12,10 +12,11 @@ namespace Client
     {
         public static List<UserInfo> userInfo = new List<UserInfo>();
         public static List<string> Dictionary;
+        public static List<UserInfoClearText> Result = new List<UserInfoClearText>();
 
         static void Main(string[] args)
         {
-            TcpClient client = new TcpClient("localhost", 6789);
+            TcpClient client = new TcpClient("192.168.6.212", 6789);
             Stream ns = client.GetStream();
 
             Dictionary = new List<string>();
@@ -31,14 +32,14 @@ namespace Client
             Console.WriteLine("Recieving passwords...");
             string password = sr.ReadLine();
             Console.WriteLine("Passwords recieved!");
-            var passSplit = password.Split('_'); 
+            var passSplit = password.Split('_');
 
-            foreach(var v in passSplit)
+            foreach (var v in passSplit)
             {
                 if (!string.IsNullOrEmpty(v))
                 {
                     var temp = v.Split(':');
-                    userInfo.Add(new UserInfo(temp[0], temp[1])); 
+                    userInfo.Add(new UserInfo(temp[0], temp[1]));
 
                 }
             }
@@ -47,35 +48,76 @@ namespace Client
 
             Console.WriteLine("Ready to crack. Type /crack to crack");
 
+            bool cont = true;
+
             while (true)
             {
                 var msg = Console.ReadLine();
                 sw.WriteLine(msg);
 
-                var response = sr.ReadLine(); 
-
-                if(response == "crack")
+                while (cont)
                 {
-                    var dic = sr.ReadLine();
-                    var splitDdic = dic.Split('_');
+                    var response = sr.ReadLine();
 
-                    foreach(var v in splitDdic)
+                    if (response == "crack")
                     {
-                        if (!string.IsNullOrEmpty(v))
+                        var dic = sr.ReadLine();
+                        var splitDdic = dic.Split('_');
+
+                        foreach (var v in splitDdic)
                         {
-                            Dictionary.Add(v); 
+                            if (!string.IsNullOrEmpty(v))
+                            {
+                                Dictionary.Add(v);
+                            }
+                        }
+
+                        Console.WriteLine("Dictionary count: " + Dictionary.Count);
+
+                        Cracking crack = new Cracking();
+                        crack.RunCracking(userInfo, Dictionary);
+
+                        string cracketPasswords = ""; 
+
+                        if (Result.Count == 0)
+                        {
+                            cracketPasswords = "null";
+                        }
+
+                        foreach (var v in Result)
+                        {
+                            cracketPasswords += v + "_";
+                        }
+
+                        sw.WriteLine(cracketPasswords);
+
+                        Dictionary.Clear();
+                        Result.Clear();
+
+                        Console.WriteLine(sr.ReadLine());
+
+                        Console.WriteLine();
+                        Console.WriteLine("Continue? y / n");
+
+                        if (Console.ReadKey().Key == ConsoleKey.Y)
+                        {
+                            sw.WriteLine("/crack");
+                            Console.WriteLine();
+
+                            continue;
+
+                        }
+                        else if (Console.ReadKey().Key == ConsoleKey.N)
+                        {
+
+                        }
+                        else
+                        {
+                            Console.WriteLine("Y = Continue. N = Dont continue");
                         }
                     }
-                    Console.WriteLine("Dictionary count: " + Dictionary.Count);
-
-
 
                 }
-
-
-                
-
-
             }
 
         }

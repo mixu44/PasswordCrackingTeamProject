@@ -11,7 +11,10 @@ namespace PasswordCrackingTeamProject
 {
     public class ServerProgram
     {
-        public static List<UserInfo> UserInfo; 
+        public static List<UserInfo> UserInfo;
+
+        public static List<UserInfoClearText> EndResult; 
+
         public static int count = 0;
 
         public static int Index = 0; 
@@ -27,6 +30,7 @@ namespace PasswordCrackingTeamProject
             Console.WriteLine();
 
             Dictionary = new List<string>();
+            EndResult = new List<UserInfoClearText>();
             LoadDictionary();
             DictionaryChunks = DivideDictionary();
 
